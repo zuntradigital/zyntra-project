@@ -87,21 +87,28 @@ export default function Footer() {
             ))}
           </div>
 
-          {/* Contact */}
-          <div>
-            <h4 style={{ color: '#fff', fontSize: '13px', fontWeight: 600, marginBottom: '20px', letterSpacing: '0.06em', textTransform: 'uppercase' }}>Contact Us</h4>
-            <a href="mailto:hello@zyntra.com"
-              style={{ color: 'rgba(255,255,255,0.45)', fontSize: '13px', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
-              <span style={{ color: '#C9A24A' }}>✉</span> hello@zyntra.com
-            </a>
-            <a href="tel:+12345678900"
-              style={{ color: 'rgba(255,255,255,0.45)', fontSize: '13px', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
-              <span style={{ color: '#C9A24A' }}>✆</span> +1 (234) 567-8900
-            </a>
-            <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '13px', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
-              <span style={{ color: '#C9A24A' }}>◎</span> 123 Fifth Avenue, New York, NY 10001, USA
-            </p>
-          </div>
+     {/* Contact */}
+<div>
+  <h4 style={{ color: '#fff', fontSize: '13px', fontWeight: 600, marginBottom: '20px', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+    Contact Us
+  </h4>
+
+  <a href="mailto:zuntradigital@gmail.com"
+    style={{ color: 'rgba(255,255,255,0.45)', fontSize: '13px', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
+    <span style={{ color: '#C9A24A' }}>✉</span> zuntradigital@gmail.com
+  </a>
+
+  <a href="tel:+201505900090"
+    style={{ color: 'rgba(255,255,255,0.45)', fontSize: '13px', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
+    <span style={{ color: '#C9A24A' }}>✆</span> 01505900090
+  </a>
+
+  <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '13px', display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+    <span style={{ color: '#C9A24A' }}>◎</span> Al Haram, Giza Governorate
+  </p>
+</div>
+
+
 
         </div>
 
