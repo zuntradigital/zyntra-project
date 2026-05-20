@@ -9,12 +9,14 @@ export default function AdminLogin() {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
 
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setError('')
     try {
-      const res = await fetch('http://localhost:5000/api/auth/login', {
+      const res = await fetch(`${baseUrl}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -31,7 +33,6 @@ export default function AdminLogin() {
     }
     setLoading(false)
   }
-
   return (
     <main style={{ minHeight: '100vh', background: '#0A0A0A', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px' }}>
       <div style={{ width: '100%', maxWidth: '420px' }}>
