@@ -13,13 +13,16 @@ const defaultServices = [
 export default function ServicesClient() {
   const [services, setServices] = useState(defaultServices)
   const router = useRouter()
+useEffect(() => {
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL
+  fetch(`${baseUrl}/api/services`)
+    .then(r => r.json())
+    .then(data => {
+      if (data.data?.length > 0) setServices(data.data)
+    })
+    .catch(() => {})
+}, [])
 
-  useEffect(() => {
-    fetch('http://localhost:5000/api/services')
-      .then(r => r.json())
-      .then(data => { if (data.data?.length > 0) setServices(data.data) })
-      .catch(() => {})
-  }, [])
 
   return (
     <>
