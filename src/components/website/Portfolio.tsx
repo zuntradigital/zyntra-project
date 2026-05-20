@@ -49,13 +49,15 @@ const categories = ['All', 'Branding', 'Web Development', 'UI/UX Design']
 export default function Portfolio() {
   const [projects, setProjects] = useState(defaultProjects)
   const [active, setActive] = useState('All')
-
-  useEffect(() => {
-    fetch('http://localhost:5000/api/projects')
-      .then(r => r.json())
-      .then(data => { if (data.data?.length > 0) setProjects(data.data) })
-      .catch(() => {})
-  }, [])
+useEffect(() => {
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL
+  fetch(`${baseUrl}/api/projects`)
+    .then(r => r.json())
+    .then(data => {
+      if (data.data?.length > 0) setProjects(data.data)
+    })
+    .catch(() => {})
+}, [])
 
   const filtered = active === 'All' ? projects : projects.filter((p: any) => p.category === active)
 
