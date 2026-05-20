@@ -11,11 +11,14 @@ export default function ContactClient() {
     if (!form.name || !form.email || !form.message) return
     setLoading(true)
     try {
-      const res = await fetch('http://localhost:5000/api/messages', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      })
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL
+
+const res = await fetch(`${baseUrl}/api/messages`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(form),
+})
+
       const data = await res.json()
       if (data.success) setSent(true)
     } catch {
