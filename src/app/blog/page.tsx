@@ -13,9 +13,10 @@ export default function AdminBlog() {
 
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : ''
   const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
   const fetchPosts = async () => {
-    const res = await fetch('http://localhost:5000/api/blog/admin/all', { headers })
+    const res = await fetch(`${baseUrl}/api/blog/admin/all`, { headers })
     const data = await res.json()
     setPosts(data.data || [])
   }
@@ -26,9 +27,17 @@ export default function AdminBlog() {
     e.preventDefault()
     const body = { ...form, tags: form.tags.split(',').map((t: string) => t.trim()).filter(Boolean) }
     if (editId) {
-      await fetch(`http://localhost:5000/api/blog/${editId}`, { method: 'PUT', headers, body: JSON.stringify(body) })
+      await fetch(`${baseUrl}/api/blog/${editId}`, {
+        method: 'PUT',
+        headers,
+        body: JSON.stringify(body)
+      })
     } else {
-      await fetch('http://localhost:5000/api/blog', { method: 'POST', headers, body: JSON.stringify(body) })
+      await fetch(`${baseUrl}/api/blog`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(body)
+      })
     }
     setForm({ title: '', excerpt: '', content: '', category: 'Design', tags: '', status: 'draft', metaTitle: '', metaDescription: '', metaKeywords: '' })
     setEditId(null)
@@ -38,7 +47,7 @@ export default function AdminBlog() {
 
   const handleDelete = async (id: string) => {
     if (!confirm('Delete this post?')) return
-    await fetch(`http://localhost:5000/api/blog/${id}`, { method: 'DELETE', headers })
+    await fetch(`${baseUrl}/api/blog/${id}`, { method: 'DELETE', headers })
     fetchPosts()
   }
 
