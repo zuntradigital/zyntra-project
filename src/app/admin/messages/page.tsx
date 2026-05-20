@@ -10,14 +10,16 @@ export default function AdminMessages() {
 
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : ''
   const headers = { Authorization: `Bearer ${token}` }
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/messages', { headers })
+    fetch(`${baseUrl}/api/messages`, { headers })
       .then(r => r.json())
       .then(data => {
         setMessages(data.data || [])
         setFiltered(data.data || [])
       })
+      .catch(() => {})
   }, [])
 
   useEffect(() => {
@@ -31,7 +33,10 @@ export default function AdminMessages() {
 
   const handleDelete = async (id: string) => {
     if (!confirm('Delete this message?')) return
-    await fetch(`http://localhost:5000/api/messages/${id}`, { method: 'DELETE', headers: { ...headers, 'Content-Type': 'application/json' } })
+    await fetch(`${baseUrl}/api/messages/${id}`, {
+      method: 'DELETE',
+      headers: { ...headers, 'Content-Type': 'application/json' }
+    })
     setMessages(messages.filter((m: any) => m._id !== id))
     setSelected(null)
   }
