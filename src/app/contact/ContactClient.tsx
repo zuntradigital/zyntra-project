@@ -45,9 +45,9 @@ export default function ContactClient() {
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
           {[
-            { icon: '✉', label: 'Email Us', value: 'hello@zyntra.com' },
-            { icon: '✆', label: 'Call Us', value: '+1 (234) 567-8900' },
-            { icon: '◎', label: 'Visit Us', value: '123 Fifth Avenue, New York, NY 10001' },
+            { icon: '✉', label: 'Email Us', value: 'zuntradigital@gmail.com' },
+            { icon: '✆', label: 'Call Us', value: '01505900090' },
+            { icon: '◎', label: 'Visit Us', value: 'Al Haram, Giza Governorate' },
           ].map(item => (
             <div key={item.label} style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
               <div style={{ width: '44px', height: '44px', borderRadius: '10px', background: 'rgba(201,162,74,0.1)', border: '1px solid rgba(201,162,74,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#C9A24A', fontSize: '18px', flexShrink: 0 }}>
@@ -87,7 +87,7 @@ export default function ContactClient() {
 
             <div>
               <label style={{ color: 'rgba(255,255,255,0.5)', fontSize: '12px', display: 'block', marginBottom: '8px' }}>Phone Number</label>
-              <input style={inputStyle} placeholder="+1 (234) 567-8900" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} />
+              <input style={inputStyle} placeholder="01505900090" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} />
             </div>
 
             <div>
