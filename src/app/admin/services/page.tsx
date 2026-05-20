@@ -10,9 +10,10 @@ export default function AdminServices() {
 
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : ''
   const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
   const fetchServices = async () => {
-    const res = await fetch('http://localhost:5000/api/services')
+    const res = await fetch(`${baseUrl}/api/services`)
     const data = await res.json()
     setServices(data.data || [])
   }
@@ -22,9 +23,17 @@ export default function AdminServices() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (editId) {
-      await fetch(`http://localhost:5000/api/services/${editId}`, { method: 'PUT', headers, body: JSON.stringify(form) })
+      await fetch(`${baseUrl}/api/services/${editId}`, {
+        method: 'PUT',
+        headers,
+        body: JSON.stringify(form)
+      })
     } else {
-      await fetch('http://localhost:5000/api/services', { method: 'POST', headers, body: JSON.stringify(form) })
+      await fetch(`${baseUrl}/api/services`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(form)
+      })
     }
     setForm({ title: '', description: '', icon: '' })
     setEditId(null)
@@ -34,7 +43,7 @@ export default function AdminServices() {
 
   const handleDelete = async (id: string) => {
     if (!confirm('Delete this service?')) return
-    await fetch(`http://localhost:5000/api/services/${id}`, { method: 'DELETE', headers })
+    await fetch(`${baseUrl}/api/services/${id}`, { method: 'DELETE', headers })
     fetchServices()
   }
 
@@ -43,6 +52,7 @@ export default function AdminServices() {
     setEditId(s._id)
     setShowForm(true)
   }
+
 
   return (
     <div>
