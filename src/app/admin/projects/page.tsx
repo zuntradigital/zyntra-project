@@ -16,9 +16,10 @@ export default function AdminProjects() {
 
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : ''
   const headers = { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
   const fetchProjects = async () => {
-    const res = await fetch('http://localhost:5000/api/projects')
+    const res = await fetch(`${baseUrl}/api/projects`)
     const data = await res.json()
     setProjects(data.data || [])
   }
@@ -28,9 +29,17 @@ export default function AdminProjects() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (editId) {
-      await fetch(`http://localhost:5000/api/projects/${editId}`, { method: 'PUT', headers, body: JSON.stringify(form) })
+      await fetch(`${baseUrl}/api/projects/${editId}`, {
+        method: 'PUT',
+        headers,
+        body: JSON.stringify(form)
+      })
     } else {
-      await fetch('http://localhost:5000/api/projects', { method: 'POST', headers, body: JSON.stringify(form) })
+      await fetch(`${baseUrl}/api/projects`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(form)
+      })
     }
     setForm({ title: '', description: '', category: 'Branding', status: 'published' })
     setEditId(null)
@@ -40,7 +49,7 @@ export default function AdminProjects() {
 
   const handleDelete = async (id: string) => {
     if (!confirm('Delete this project?')) return
-    await fetch(`http://localhost:5000/api/projects/${id}`, { method: 'DELETE', headers })
+    await fetch(`${baseUrl}/api/projects/${id}`, { method: 'DELETE', headers })
     fetchProjects()
   }
 
