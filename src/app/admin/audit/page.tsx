@@ -6,15 +6,24 @@ export default function AuditLogs() {
   const [logs, setLogs] = useState([])
 
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : ''
-  const headers = { Authorization: `Bearer ${token}` }
   const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
   useEffect(() => {
-    fetch(`${baseUrl}/api/audit-logs`, { headers })
+    fetch(`${baseUrl}/api/audit-logs`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
       .then(r => r.json())
       .then(data => setLogs(data.data || []))
       .catch(() => {})
-  }, [])
+  }, [baseUrl, token])
+
+  const actionColor: Record<string, string> = {
+    CREATE: '#22C55E',
+    UPDATE: '#C9A24A',
+    DELETE: '#EF4444',
+    LOGIN: '#3B82F6'
+  }
+
   return (
     <div>
       <Topbar title="Audit Logs" />
@@ -30,12 +39,26 @@ export default function AuditLogs() {
             </thead>
             <tbody>
               {logs.length === 0 ? (
-                <tr><td colSpan={4} style={{ padding: '40px', textAlign: 'center', color: 'rgba(255,255,255,0.30)', fontSize: '14px' }}>No logs yet.</td></tr>
+                <tr>
+                  <td colSpan={4} style={{ padding: '40px', textAlign: 'center', color: 'rgba(255,255,255,0.30)', fontSize: '14px' }}>
+                    No logs yet.
+                  </td>
+                </tr>
               ) : (
                 logs.map((log: any) => (
                   <tr key={log._id} style={{ borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
                     <td style={{ padding: '14px 16px' }}>
-                      <span style={{ padding: '3px 10px', borderRadius: '999px', fontSize: '11px', fontWeight: 600, background: `${actionColor[log.action] || '#C9A24A'}15`, color: actionColor[log.action] || '#C9A24A', border: `1px solid ${actionColor[log.action] || '#C9A24A'}30` }}>
+                      <span
+                        style={{
+                          padding: '3px 10px',
+                          borderRadius: '999px',
+                          fontSize: '11px',
+                          fontWeight: 600,
+                          background: `${actionColor[log.action] || '#C9A24A'}15`,
+                          color: actionColor[log.action] || '#C9A24A',
+                          border: `1px solid ${actionColor[log.action] || '#C9A24A'}30`
+                        }}
+                      >
                         {log.action}
                       </span>
                     </td>
