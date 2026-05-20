@@ -6,20 +6,15 @@ export default function AuditLogs() {
   const [logs, setLogs] = useState([])
 
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : ''
+  const headers = { Authorization: `Bearer ${token}` }
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/audit-logs', {
-      headers: { Authorization: `Bearer ${token}` }
-    })
+    fetch(`${baseUrl}/api/audit-logs`, { headers })
       .then(r => r.json())
       .then(data => setLogs(data.data || []))
       .catch(() => {})
   }, [])
-
-  const actionColor: any = {
-    CREATE: '#22C55E', UPDATE: '#C9A24A', DELETE: '#EF4444', LOGIN: '#3B82F6'
-  }
-
   return (
     <div>
       <Topbar title="Audit Logs" />
