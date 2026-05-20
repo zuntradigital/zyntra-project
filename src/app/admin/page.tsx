@@ -9,11 +9,13 @@ export default function AdminDashboard() {
   useEffect(() => {
     const token = localStorage.getItem('token')
     const headers = { Authorization: `Bearer ${token}` }
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL
+
     Promise.all([
-      fetch('http://localhost:5000/api/services').then(r => r.json()),
-      fetch('http://localhost:5000/api/projects').then(r => r.json()),
-      fetch('http://localhost:5000/api/messages', { headers }).then(r => r.json()),
-      fetch('http://localhost:5000/api/blog').then(r => r.json()),
+      fetch(`${baseUrl}/api/services`).then(r => r.json()),
+      fetch(`${baseUrl}/api/projects`).then(r => r.json()),
+      fetch(`${baseUrl}/api/messages`, { headers }).then(r => r.json()),
+      fetch(`${baseUrl}/api/blog`).then(r => r.json()),
     ]).then(([services, projects, messages, blog]) => {
       setStats({
         services: services.data?.length || 0,
